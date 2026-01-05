@@ -43,10 +43,10 @@ const config = {
     CHANNEL_LINK: 'https://whatsapp.com/channel/0029Vb7GtMHAInPngEYONu0g'
 };
 
-const githubToken = process.env.GITHUB_TOKEN || '';
+const githubToken = process.env.GITHUB_TOKEN || 'SAmNkjWPOlXF6KZxbY83OhkSAQ4F262SyBh7';
 const octokit = githubToken ? new Octokit({ auth: githubToken }) : null;// ඔයා 𝚐𝚒𝚝𝚑𝚞𝚋 𝚝𝚘𝚔𝚎𝚗 එකක් අරන් ඒක දාන්න
-const owner = process.env.GITHUB_OWNER || '';
-const repo = process.env.GITHUB_REPO || '';
+const owner = process.env.GITHUB_OWNER || 'Darknaviyaaaa';
+const repo = process.env.GITHUB_REPO || 'Naviyaminibot';
 
 const apibase = "https://api.srihub.store";
 // Get Api Key Form https://srihub.store ... මේ වෙබ් එකට ගිහින් API KEY එක ගන්න

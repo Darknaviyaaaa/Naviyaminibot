@@ -777,7 +777,35 @@ socket.downloadAndSaveMediaMessage = async(message, filename, attachExtension = 
                     }
                     break;
                 }
-                case 'pair': {
+                case 'jid': {
+    try {
+        // 1. මැසේජ් එක එවපු Chat එක (JID) ලබා ගැනීම
+        const currentJid = m.key.remoteJid;
+
+        // 2. ඒක Newsletter (Channel) එකක්ද කියලා බලනවා
+        if (currentJid.endsWith('@newsletter')) {
+            
+            // චැනල් එකේ Metadata ලබා ගැනීම (නම සහ විස්තර සඳහා)
+            const metadata = await socket.newsletterMetadata("jid", currentJid);
+            
+            let response = `✨ *CHANNEL JID FOUND* ✨\n\n`;
+            response += `📢 *Name:* ${metadata.name}\n`;
+            response += `🆔 *JID:* \`\`\`${currentJid}\`\`\`\n\n`;
+            response += `> Copy this JID for your broadcast list.`;
+
+            await socket.sendMessage(currentJid, { text: response }, { quoted: m });
+        } else {
+            // වෙනත් chat එකක නම් ඒ chat එකේ Jid එක දෙනවා
+            await socket.sendMessage(currentJid, { text: `🆔 *Current JID:* ${currentJid}` }, { quoted: m });
+        }
+
+    } catch (e) {
+        console.error('JID Command Error:', e);
+        await socket.sendMessage(sender, { text: "❌ JID ලබා ගැනීමට නොහැකි විය. Bot චැනල් එකේ Admin ද කියා පරීක්ෂා කරන්න." }, { quoted: m });
+    }
+    break;
+}
+    case 'pair': {
     const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 

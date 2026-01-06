@@ -695,6 +695,22 @@ socket.downloadAndSaveMediaMessage = async(message, filename, attachExtension = 
 
   break;
 }
+   case 'update': {
+    if (!isOwner) return await socket.sendMessage(sender, { text: "❌ මේක කරන්න පුළුවන් Bot Owner ට විතරයි." }, { quoted: m });
+
+    await socket.sendMessage(sender, { text: "🚀 *Bot එක අලුත් වෙමින් පවතිනවා...*\nකරුණාකර විනාඩි 2-3ක් රැඳී සිටින්න. වැඩේ අවසන් වූ පසු Bot නැවත Active වනු ඇත." }, { quoted: m });
+
+    try {
+        // Koyeb හෝ වෙනත් ඕනෑම තැනක Build එකක් trigger කිරීමට process එක අයින් කරනවා
+        // Koyeb එකේ 'Auto-Deploy' On නම්, process එක නැවතුණු ගමන් අලුත් එක Build වෙන්න පටන් ගන්නවා
+        console.log("Updating Bot...");
+        process.exit(); 
+    } catch (e) {
+        console.error(e);
+        await socket.sendMessage(sender, { text: "❌ Update කිරීමේදී දෝෂයක් සිදු විය." }, { quoted: m });
+    }
+    break;
+}     
               case 'fancy': {
   const axios = require("axios");
 
